@@ -1,0 +1,414 @@
+
+    /* =============================================== */
+    /* 1. GAYA GLOBAL & FONDASI                      */
+    /* =============================================== */
+    *,
+    *::before,
+    *::after {
+    box-sizing: border-box;
+    }
+    /* Mengimpor font Poppins yang modern */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    
+    /* Palet Warna & Variabel Global */
+    :root {
+        --bpjs-blue: #005bac;
+        --bpjs-blue-light: #e6f1ff;
+        --bpjs-green: #8dc63f;
+        --text-dark: #2c3e50;
+        --text-muted: #8a96a3;
+        --bg-page: #f4f7fa;
+        --border-color: #dfe7ef;
+        --danger: #dc3545;
+        --sidebar-width: 260px;
+    }
+
+    /* Reset Dasar & Pengaturan Body */
+    html, body {
+        overflow-x: hidden;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-page);
+        color: var(--text-dark);
+    }
+
+
+    /* Sistem Halaman (Page) */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Animasi Universal */
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* =============================================== */
+    /* 2. LAYOUT UTAMA (APP CONTAINER & SIDEBAR)     */
+    /* =============================================== */
+    .app-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+        background-color: var(--bpjs-blue);
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+        transition: transform 0.3s ease-in-out;
+    }
+    .sidebar-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .sidebar-header h1 {
+        font-size: 24px;
+        margin: 0;
+    }
+    .sidebar-header span {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+    .sidebar-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar-nav li a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        transition: background-color 0.2s;
+    }
+    .sidebar-nav li a:hover, .sidebar-nav li a.active {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+    .sidebar-nav li a i {
+        font-size: 1.2em;
+        width: 25px;
+        text-align: center;
+    }
+
+    .main-content {
+        flex-grow: 1;
+        margin-left: var(--sidebar-width);
+        padding: 20px;
+        background-color: var(--bg-page);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .content-wrapper {
+        width: 100%;
+    }
+
+    .menu-toggle {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+        background-color: var(--bpjs-blue);
+        color: white;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+    }
+
+    /* =============================================== */
+    /* 3. KOMPONEN UMUM (KARTU, TOMBOL, FORM)        */
+    /* =============================================== */
+
+    /* Desain Kartu Utama yang Elegan */
+    .card, #operator-page .operator-card {
+        background-color: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    /* Header Kartu */
+    .card-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+    .card-header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin: 0;
+    }
+    .card-header p {
+        color: var(--text-muted);
+        margin: 4px 0 0 0;
+        font-size: 15px;
+    }
+    
+    .copyright {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+    .copyright a {
+        color: var(--bpjs-blue);
+    }
+    
+    /* Desain Tombol Universal */
+    .btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 10px;
+        background-color: var(--bpjs-blue);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .btn:hover:not(:disabled) {
+        background-color: #004a8c;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 91, 172, 0.3);
+    }
+    .btn:disabled {
+        background-color: #b0c4de;
+        cursor: not-allowed;
+    }
+
+    /* Spinner */
+    .spinner {
+        width: 56px; height: 56px;
+        border-radius: 50%;
+        border: 8px solid var(--border-color);
+        border-top-color: var(--bpjs-blue);
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px auto;
+    }
+    .btn-spinner {
+        width: 20px; height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #ffffff;
+        animation: spin 1s ease-in-out infinite;
+        margin: 0 auto; /* Pusatkan spinner di tombol */
+    }
+    .processing .fa-solid { display: none; }
+
+
+    /* Desain Form yang Modern */
+    .form-group { margin-bottom: 22px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+    .form-group input[type="text"], .form-group input[type="tel"] {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--bpjs-blue);
+        box-shadow: 0 0 0 4px var(--bpjs-blue-light);
+    }
+    .form-group .validation-message {
+        font-size: 13px;
+        color: var(--danger);
+        margin-top: 6px;
+        display: none;
+    }
+    .radio-card-group label { font-weight: 500; font-size: 14px; display:block; text-align:left; }
+    .radio-card {
+        display: block; position: relative;
+        padding: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: border-color 0.3s, background-color 0.3s;
+        text-align: left;
+    }
+    .radio-card:has(input:checked) {
+        border-color: var(--bpjs-blue);
+        background-color: var(--bpjs-blue-light);
+    }
+    .radio-card input { position: absolute; opacity: 0; }
+    .radio-card .validation-message {
+        margin-top: 10px; display: none; font-size: 13px; color: var(--danger);
+    }
+    
+    /* =============================================== */
+    /* 4. GAYA SPESIFIK PER HALAMAN                  */
+    /* =============================================== */
+
+    /* --- Halaman Form, Loading & Cek Antrian --- */
+    #form-page .card, #cek-antrian-page .card, #loading-page .card {
+        max-width: 450px; /* Kembalikan ukuran kartu kecil untuk halaman ini */
+    }
+    .ticket-view h1 { font-size: 26px; font-weight: 700; text-align: center; }
+    .ticket-view p { color: var(--text-muted); text-align: center; margin-top: 0; margin-bottom: 30px; }
+    .ticket-box { background-color: #fff; border: 1px solid var(--border-color); padding: 25px; border-radius: 12px; }
+    .ticket-box .label { font-size: 14px; color: var(--text-muted); }
+    .ticket-box .number { font-size: 60px; font-weight: 700; color: var(--bpjs-blue); line-height: 1.2; }
+    .ticket-box .detail { margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px; }
+    .link { color: var(--bpjs-blue); cursor: pointer; text-decoration: none; font-size: 14px; margin-top: 25px; display: inline-block; }
+
+    /* --- Halaman Laporan --- */
+    #laporan-page .controls { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 25px; }
+    #laporan-page input[type="date"] { padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Poppins', sans-serif; }
+    #laporan-page .btn { width: auto; } /* Tombol tidak full-width */
+    #laporan-page .btn-secondary { background-color: var(--bpjs-green); }
+    #laporan-page .table-container { 
+        width: 100%; 
+        overflow-x: auto;  /* <-- Ini yang terpenting */
+        margin-top: 20px; 
+        -webkit-overflow-scrolling: touch; /* Menambahkan scrolling yang mulus di iOS */
+        border: 1px solid var(--border-color); /* Tambahkan border agar terlihat lebih rapi */
+        border-radius: 8px; /* Sudut membulat */
+        padding: 5px; /* Sedikit padding internal */
+         display: block;
+    }
+    #laporan-page table { width: 100%; border-collapse: collapse; }
+    #laporan-page th, #laporan-page td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; font-size: 14px; white-space: nowrap; }
+    #laporan-page th { background-color: var(--bg-page); font-weight: 600; }
+
+    /* --- Halaman Operator --- */
+    #operator-page .operator-card { text-align: center; }
+    #operator-page .main-display { background-color: var(--bpjs-blue); color: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; }
+    #operator-page .main-display p { margin: 0; font-size: 16px; font-weight: 500; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+    #operator-page .main-display h1 { font-size: 120px; font-weight: 700; margin: 10px 0; line-height: 1; }
+    #operator-page .main-display h2 { font-size: 24px; font-weight: 600; margin: 5px 0 15px 0; }
+    #operator-page .layanan-tag { background-color: rgba(255, 255, 255, 0.2); padding: 6px 14px; border-radius: 20px; font-size: 14px; display: inline-block; }
+    #operator-page .controls { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; }
+    #operator-page .control-btn { padding: 15px 30px; font-size: 16px; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 10px; width: auto; }
+    #operator-page .control-btn i { font-size: 1.1em; }
+    #operator-page .btn-next { background-color: var(--bpjs-green); color: white; }
+    #operator-page .btn-skip { background-color: #f39c12; color: white; }
+    #operator-page .control-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+    #operator-page .queue-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; text-align: left; }
+    #operator-page .list-container h3 { font-size: 16px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); }
+    #operator-page .list-container h3 i { margin-right: 8px; color: var(--bpjs-blue); }
+    #operator-page .queue-lists ul { list-style: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; }
+    #operator-page .queue-lists li { 
+    background-color: var(--bg-page); 
+    padding: 12px 15px; 
+    border-radius: 8px; 
+    margin-bottom: 8px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+    #operator-page .queue-lists .nomor { margin-right: 15px; font-weight: 700; font-size: 1.2em; color: var(--bpjs-blue); }
+    #operator-page .queue-lists .nama { font-weight: 500; }
+    #operator-page .queue-lists .btn-recall { background-color: var(--bpjs-blue); color: white; border: none; padding: 5px 10px; font-size: 12px; border-radius: 5px; cursor: pointer; }
+
+    /* =============================================== */
+    /* 5. MEDIA QUERIES (ATURAN RESPONSIVE)          */
+    /* =============================================== */
+
+    /* --- Tampilan Tablet (Sidebar menjadi Hamburger) --- */
+    @media (max-width: 992px) {
+        .main-content {
+            margin-left: 0;
+            padding: 70px 15px 15px 15px;
+            min-width: 0;
+        }
+        .sidebar {
+            transform: translateX(-100%);
+        }
+        .menu-toggle {
+            display: block;
+        }
+        .sidebar-open .sidebar {
+            transform: translateX(0);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+        }
+        .sidebar-open .overlay {
+            display: block;
+        }
+    }
+
+    /* --- Tampilan Mobile Besar (Tata Letak Operator & Laporan) --- */
+    @media (max-width: 768px) {
+        /* Halaman Operator */
+        #operator-page .operator-card { padding: 20px; }
+        #operator-page .controls { flex-direction: column; gap: 10px; }
+        #operator-page .control-btn { width: 100%; justify-content: center; }
+        #operator-page .queue-lists { grid-template-columns: 1fr; gap: 30px; }
+        #operator-page .main-display h1 { font-size: 90px; }
+        #operator-page .main-display h2 { font-size: 20px; }
+        #operator-page .main-display p { font-size: 14px; }
+        
+        /* [BARU] Halaman Laporan */
+        #laporan-page .controls {
+            flex-direction: column; /* Susun kontrol ke bawah */
+            align-items: stretch; /* Buat semua kontrol sama lebarnya */
+        }
+        #laporan-page .btn {
+            width: 100%; /* Tombol jadi full-width */
+        }
+    }
+
+    /* --- Tampilan Mobile Kecil (Penyesuaian Font & Padding) --- */
+    @media (max-width: 500px) {
+        /* Kartu Form/Tiket */
+        .card { padding: 25px; }
+        .card-header h1 { font-size: 24px; }
+        
+        /* Kartu Operator */
+        #operator-page .operator-card { padding: 15px; }
+        #operator-page .main-display h1 { font-size: 70px; }
+        #operator-page .main-display h2 { font-size: 18px; }
+
+        /* Padding konten utama di mobile */
+        .main-content {
+            padding: 70px 10px 10px 10px;
+        }
+    }
+
+.public-content-container {
+    padding: 20px;
+    display: flex;
+    /* Mirip dengan .main-content di halaman operator */
+    justify-content: center;   /* Rata tengah horizontal */
+    align-items: flex-start; /* Rata atas vertikal */
+    min-height: 100vh;
+    box-sizing: border-box;
+    align-items: center;
+}
