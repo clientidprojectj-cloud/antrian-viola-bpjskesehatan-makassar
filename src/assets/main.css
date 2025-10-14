@@ -1,3 +1,4 @@
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
     /* =============================================== */
     /* 1. GAYA GLOBAL & FONDASI                      */
@@ -8,7 +9,6 @@
     box-sizing: border-box;
     }
     /* Mengimpor font Poppins yang modern */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
     
     /* Palet Warna & Variabel Global */
     :root {

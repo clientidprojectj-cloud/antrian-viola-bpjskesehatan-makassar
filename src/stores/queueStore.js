@@ -32,9 +32,10 @@ export const useQueueStore = defineStore('queue', () => {
       };
     }
 
-    const isSesi1 = (hour >= 8 && hour < 11) || (hour === 11 && minute <= 30);
+    // const isSesi1 = (hour >= 8 && hour < 11) || (hour === 11 && minute <= 30);
+    // const isSesi2 = (hour === 13 && minute >= 30) || (hour === 14) || (hour === 15 && minute <= 30);
+    const isSesi1 = (hour >= 21 && hour < 22) || (hour === 11 && minute <= 30);
     const isSesi2 = (hour === 13 && minute >= 30) || (hour === 14) || (hour === 15 && minute <= 30);
-
     if (isSesi1 || isSesi2) {
       return { 
         isOpen: true, 
