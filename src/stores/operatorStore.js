@@ -7,6 +7,9 @@ export const useOperatorStore = defineStore('operator', () => {
     const allQueues = ref([]);
     const isFetching = ref(false);
     const isUpdating = ref(false);
+    
+    let pollingInterval = null;
+
     const currentQueue = computed(() => allQueues.value.find(q => q.status === 'Mengantre'));
     const nextQueues = computed(() => allQueues.value.filter(q => q.status === 'Mengantre').slice(1));
     const skippedQueues = computed(() => allQueues.value.filter(q => q.status === 'Dilewati'));
@@ -43,5 +46,30 @@ export const useOperatorStore = defineStore('operator', () => {
         }
     }
 
-    return { allQueues, isFetching, isUpdating, currentQueue, nextQueues, skippedQueues, fetchQueues, updateQueueStatus };
+    function startPolling() {
+        fetchQueues(); 
+        if (!pollingInterval) {
+            pollingInterval = setInterval(fetchQueues, 5000);
+        }
+    }
+
+    function stopPolling() {
+        if (pollingInterval) {
+            clearInterval(pollingInterval);
+            pollingInterval = null;
+        }
+    }
+
+    return { 
+        allQueues, 
+        isFetching, 
+        isUpdating, 
+        currentQueue, 
+        nextQueues, 
+        skippedQueues, 
+        fetchQueues, 
+        updateQueueStatus,
+        startPolling, 
+        stopPolling   
+    };
 })
