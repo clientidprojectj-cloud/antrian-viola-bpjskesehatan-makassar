@@ -308,11 +308,12 @@ const handleRecall = (nomor) => {
     justify-content: center;
     align-items: center;
     z-index: 2020; 
-    backdrop-filter: blur(2px); 
+    backdrop-filter: blur(0px); 
 }
 .fs-loading-overlay .btn-spinner {
     width: 80px;
     height: 80px;
     border-width: 8px;
+    border-top-color: yellow;
 }
 </style>
