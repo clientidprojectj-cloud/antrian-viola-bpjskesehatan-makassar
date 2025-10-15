@@ -1,20 +1,16 @@
-// file: src/stores/operatorStore.js
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
 const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL;
 
 export const useOperatorStore = defineStore('operator', () => {
-    // State
     const allQueues = ref([]);
     const isFetching = ref(false);
     const isUpdating = ref(false);
-    // Getters
     const currentQueue = computed(() => allQueues.value.find(q => q.status === 'Mengantre'));
     const nextQueues = computed(() => allQueues.value.filter(q => q.status === 'Mengantre').slice(1));
     const skippedQueues = computed(() => allQueues.value.filter(q => q.status === 'Dilewati'));
 
-    // Actions
     async function fetchQueues() {
         isFetching.value = true;
         try {
@@ -38,7 +34,7 @@ export const useOperatorStore = defineStore('operator', () => {
         isUpdating.value = true;
         try {
             await fetch(SCRIPT_URL, { method: 'POST', body: formData });
-            await fetchQueues(); // Ambil data terbaru setelah update
+            await fetchQueues(); 
         } catch (error) {
             console.error("Gagal update status:", error);
             alert("Gagal memperbarui status. Periksa koneksi.");

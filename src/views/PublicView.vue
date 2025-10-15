@@ -21,13 +21,12 @@
 </template>
 
 <script setup>
-// 1. Import komponen baru yang sudah kita buat
 import { onMounted } from 'vue'
 import { useQueueStore } from '@/stores/queueStore'
 import QueueForm from '@/components/QueueForm.vue'
 import TicketDisplay from '@/components/TicketDisplay.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
-import FormClosedMessage from '@/components/FormClosedMessage.vue' // <-- IMPORT INI
+import FormClosedMessage from '@/components/FormClosedMessage.vue' 
 
 const store = useQueueStore()
 

@@ -39,7 +39,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { utils, writeFile } from 'xlsx' // Langsung impor fungsi yang dibutuhkan
+import { utils, writeFile } from 'xlsx' 
 
 const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL;
 
@@ -50,7 +50,6 @@ const reportData = ref([]);
 const message = ref('Silakan pilih tanggal dan klik "Tampilkan Data".');
 
 onMounted(() => {
-    // Set tanggal hari ini saat komponen dimuat
     const today = new Date().toISOString().split('T')[0];
     selectedDate.value = today;
 });
@@ -73,7 +72,7 @@ const fetchReport = async () => {
     if (result.data && result.data.length > 0) {
       reportHeaders.value = result.header;
       reportData.value = result.data;
-      message.value = ''; // Kosongkan pesan jika data ditemukan
+      message.value = ''; 
     } else {
       message.value = 'Tidak ada data antrian untuk tanggal yang dipilih.';
     }
@@ -88,7 +87,6 @@ const fetchReport = async () => {
 const downloadExcel = () => {
     if (reportData.value.length === 0) return;
     
-    // Buat worksheet dari array of arrays
     const dataWithHeaders = [reportHeaders.value, ...reportData.value];
     const ws = utils.aoa_to_sheet(dataWithHeaders);
     const wb = utils.book_new();
