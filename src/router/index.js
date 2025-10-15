@@ -1,14 +1,28 @@
-// file: src/router/index.js
+import { createRouter, createWebHistory } from 'vue-router'
+import { auth } from '@/firebase/config';
 
-import { createRouter, createWebHashHistory } from 'vue-router'
+// Impor semua komponen View Anda
 import PublicView from '../views/PublicView.vue'
 import OperatorView from '../views/OperatorView.vue'
 import ReportView from '../views/ReportView.vue'
+import LoginView from '../views/LoginView.vue'
+import { onAuthStateChanged } from 'firebase/auth';
 
-const OPERATOR_KEY = import.meta.env.VITE_OPERATOR_KEY;
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const removeListener = onAuthStateChanged(
+      auth,
+      (user) => {
+        removeListener(); // Hentikan pendengar setelah kita dapat jawaban
+        resolve(user);
+      },
+      reject
+    );
+  });
+};
 
 const router = createRouter({
-  history: createWebHashHistory(), // Menggunakan hash mode seperti pada kode asli
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -16,17 +30,21 @@ const router = createRouter({
       component: PublicView
     },
     {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
       path: '/operator',
       name: 'operator',
       component: OperatorView,
-      // Navigation guard untuk memeriksa kunci rahasia
-      beforeEnter: (to, from, next) => {
-        const key = to.query.kunci;
-        if (key === OPERATOR_KEY) {
-          next(); // Kunci valid, lanjutkan
+      // Hanya menggunakan pengecekan login Firebase
+      beforeEnter: async (to, from, next) => {
+        const user = await getCurrentUser(); // Tunggu jawaban pasti dari Firebase
+        if (user) {
+          next(); // Ada pengguna, izinkan masuk
         } else {
-          alert('Kunci akses tidak valid!');
-          next({ name: 'public' }); // Kunci tidak valid, lempar ke halaman utama
+          next({ name: 'login' }); // Tidak ada pengguna, lempar ke login
         }
       }
     },
@@ -34,12 +52,13 @@ const router = createRouter({
       path: '/laporan',
       name: 'laporan',
       component: ReportView,
-      beforeEnter: (to, from, next) => {
-        const key = to.query.kunci;
-        if (key === OPERATOR_KEY) {
-          next(); 
+      // Hanya menggunakan pengecekan login Firebase
+      beforeEnter: async (to, from, next) => {
+        const user = await getCurrentUser(); // Tunggu jawaban pasti dari Firebase
+        if (user) {
+          next(); // Ada pengguna, izinkan masuk
         } else {
-          next({ name: 'public' });
+          next({ name: 'login' }); // Tidak ada pengguna, lempar ke login
         }
       }
     }

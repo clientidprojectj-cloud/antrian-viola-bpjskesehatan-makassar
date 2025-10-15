@@ -67,11 +67,14 @@
         z-index: 1000;
         transition: transform 0.3s ease-in-out;
     }
+    
     .sidebar-header {
         text-align: center;
+        margin-right: 0px;
         margin-bottom: 40px;
         padding-bottom: 20px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
     }
     .sidebar-header h1 {
         font-size: 24px;
@@ -81,10 +84,14 @@
         font-size: 14px;
         opacity: 0.8;
     }
+    .sidebar-nav{
+        flex-grow: 1;
+    }
     .sidebar-nav ul {
         list-style: none;
         padding: 0;
         margin: 0;
+        
     }
     .sidebar-nav li a {
         display: flex;
@@ -96,6 +103,7 @@
         border-radius: 8px;
         margin-bottom: 5px;
         transition: background-color 0.2s;
+       
     }
     .sidebar-nav li a:hover, .sidebar-nav li a.active {
         background-color: rgba(255, 255, 255, 0.15);
@@ -104,8 +112,35 @@
         font-size: 1.2em;
         width: 25px;
         text-align: center;
+        
     }
-
+    .sidebar-footer {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+    
+    }
+    .sidebar-footer a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        transition: background-color 0.2s;
+    }
+    .sidebar-footer a:hover {
+        background-color: #dc3545; /* Warna merah saat di-hover */
+    }
+    .sidebar-footer a i {
+        font-size: 1.2em;
+        width: 25px;
+        text-align: center;
+    }
     .main-content {
         flex-grow: 1;
         margin-left: var(--sidebar-width);
@@ -411,4 +446,67 @@
     min-height: 100vh;
     box-sizing: border-box;
     align-items: center;
+}
+.account-dropdown {
+    position: relative; /* Diperlukan untuk positioning dropdown-menu */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.account-summary {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.account-summary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.account-summary .fa-user-circle {
+    font-size: 1.8em;
+    margin-right: 12px;
+}
+
+.user-email {
+    flex-grow: 1;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.account-summary .fa-chevron-up {
+    transition: transform 0.3s;
+}
+/* Anda perlu menambahkan logika untuk memutar ikon ini jika mau */
+
+.dropdown-menu {
+    position: absolute;
+    bottom: 100%; /* Muncul di atas tombol */
+    left: 0;
+    right: 0;
+    background-color: #004a8c;
+    border-radius: 8px;
+    margin: 0 10px 10px;
+    padding: 5px;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #dc3545; /* Warna merah saat hover */
 }
