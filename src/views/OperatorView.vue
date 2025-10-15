@@ -114,15 +114,24 @@ const runFabAction = (action) => {
   isFabMenuOpen.value = false; 
 };
 
-let pollingInterval = null;
+const handleVisibilityChange = () => {
+  if (document.hidden) {
+    store.stopPolling();
+    console.log("Tab tidak aktif, polling dihentikan.");
+  } else {
+    store.startPolling();
+    console.log("Tab kembali aktif, polling dimulai.");
+  }
+};
 
 onMounted(() => {
-  store.fetchQueues();
-  pollingInterval = setInterval(store.fetchQueues, 5000);
+  store.startPolling();
+  document.addEventListener('visibilitychange', handleVisibilityChange);
 });
 
 onUnmounted(() => {
-  clearInterval(pollingInterval);
+  store.stopPolling();
+   document.removeEventListener('visibilitychange', handleVisibilityChange);
 });
 
 const handleNext = () => {
