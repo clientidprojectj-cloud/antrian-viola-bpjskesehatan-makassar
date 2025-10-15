@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import { reactive, computed, watch } from 'vue' // Tambahkan 'watch'
+import { reactive, computed, watch } from 'vue' 
 import { useQueueStore } from '@/stores/queueStore'
 
 const store = useQueueStore()
@@ -76,33 +76,25 @@ const errors = reactive({
   layanan: '',
 })
 
-// --- VALIDASI REAL-TIME MENGGUNAKAN WATCH ---
 
-// 1. Memantau perubahan pada kolom NAMA
 watch(() => form.nama, (newValue) => {
   if (newValue.length > 0 && newValue.length <= 2) {
     errors.nama = 'Nama lengkap minimal 3 huruf.'
   } else {
-    // Hapus pesan error jika sudah valid
     errors.nama = ''
   }
 })
 
-// 2. Memantau perubahan pada kolom NOMOR HP
 watch(() => form.hp, (newValue) => {
   if (newValue.length > 0 && !newValue.startsWith('0')) {
-    // Prioritas 1: Cek awalan '0'. Jika salah, langsung tampilkan error ini.
     errors.hp = 'Nomor Handphone harus diawali dengan angka 0.'
   } else if (newValue.length > 0 && newValue.length < 10) {
-    // Prioritas 2: Jika awalan sudah benar, baru cek panjang minimal.
     errors.hp = 'Nomor Handphone minimal 10 digit.'
   } else {
-    // Jika semua kondisi di atas tidak terpenuhi (artinya valid atau kosong), hapus error.
     errors.hp = ''
   }
 })
 
-// --- Fungsi pemfilteran input (tidak berubah) ---
 const formatNameInput = (event) => {
   form.nama = event.target.value.replace(/[^a-zA-Z\s]/g, '');
 }
@@ -111,7 +103,6 @@ const formatHpInput = (event) => {
   form.hp = event.target.value.replace(/[^0-9]/g, '');
 }
 
-// --- Logika untuk Tombol Submit (tidak berubah) ---
 const isFormValid = computed(() => {
     const isNameValid = form.nama.length > 2 && /^[a-zA-Z\s]+$/.test(form.nama);
     const isHpValid = /^[0-9]{10,13}$/.test(form.hp) && form.hp.startsWith('0');
@@ -119,7 +110,6 @@ const isFormValid = computed(() => {
 });
 
 const handleSubmit = () => {
-  // Lakukan pengecekan terakhir untuk memastikan semua terisi
   if (!form.nama) errors.nama = 'Nama lengkap wajib diisi.';
   if (!form.hp) errors.hp = 'Nomor Handphone wajib diisi.';
   if (form.hp && !form.hp.startsWith('0')) errors.hp = 'Nomor Handphone harus diawali dengan angka 0.'
@@ -132,7 +122,6 @@ const handleSubmit = () => {
 </script>
 
 <style scoped>
-/* --- Gaya Baru untuk Header Kartu --- */
 .card-header .logo-bpjs {
     max-width: 180px;
     margin-bottom: 20px;
@@ -146,7 +135,6 @@ const handleSubmit = () => {
 .card-header h1 {
     font-size: 32px;
     font-weight: 700;
-    /* Variabel CSS dari main.css tetap bisa diakses */
     color: var(--text-dark); 
 }
 
@@ -155,7 +143,6 @@ const handleSubmit = () => {
     color: var(--text-muted);
 }
 
-/* --- Desain Ulang Form Group & Input --- */
 .form-group {
     margin-bottom: 28px;
     text-align: left;
@@ -189,7 +176,6 @@ const handleSubmit = () => {
     box-shadow: 0 0 0 4px rgba(0, 91, 172, 0.15);
 }
 
-/* --- Desain Ulang Pilihan Layanan (Radio Card) --- */
 .radio-card-group {
     display: flex;
     flex-direction: column;
@@ -229,7 +215,6 @@ const handleSubmit = () => {
     color: var(--text-dark);
 }
 
-/* --- Desain Ulang Tombol Submit --- */
 .btn.btn-submit {
     padding: 20px;
     font-size: 18px;
@@ -240,7 +225,6 @@ const handleSubmit = () => {
     box-shadow: 0 4px 20px rgba(0, 91, 172, 0.2);
 }
 
-/* --- Animasi Halus --- */
 @keyframes fadeInUp {
     from {
         opacity: 0;

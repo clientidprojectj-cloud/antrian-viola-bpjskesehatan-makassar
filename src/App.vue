@@ -56,8 +56,8 @@
 <script setup>
 import { computed, ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter, RouterView, RouterLink } from 'vue-router'
-import { auth } from '@/firebase/config'; // 1. Impor auth
-import { signOut, onAuthStateChanged } from 'firebase/auth'; // 2. Impor fungsi signOut
+import { auth } from '@/firebase/config'; 
+import { signOut, onAuthStateChanged } from 'firebase/auth'; 
 
 const route = useRoute()
 const router = useRouter();
@@ -73,7 +73,6 @@ const handleLogout = async () => {
     try {
       await signOut(auth);
       console.log('Logout berhasil');
-      // Arahkan ke halaman login setelah logout
       router.push({ name: 'login' });
     } catch (error) {
       console.error('Gagal logout:', error);
@@ -81,7 +80,6 @@ const handleLogout = async () => {
     }
   }
 }
-// Ambil email pengguna saat komponen dimuat
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userEmail.value = user.email;
@@ -103,10 +101,9 @@ watch(route, () => {
 </script>
 
 <style>
-/* CSS untuk active link di sidebar */
 .sidebar-nav a.router-link-active,
 .sidebar-nav a.router-link-exact-active {
-    background-color: rgba(255, 255, 255, 0.15); /* Disesuaikan agar cocok dengan gaya hover */
+    background-color: rgba(255, 255, 255, 0.15); 
     font-weight: 600;
 }
 .logo-bpjs {

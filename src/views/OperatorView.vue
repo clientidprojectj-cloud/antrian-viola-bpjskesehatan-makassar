@@ -99,33 +99,29 @@ const toggleFullscreen = () => {
   isFullscreen.value = !isFullscreen.value;
 };
 
-const isFabMenuOpen = ref(false); // State untuk menu tombol asisten
+const isFabMenuOpen = ref(false); 
 
-// Fungsi untuk membuka/menutup menu
 const toggleFabMenu = () => {
   isFabMenuOpen.value = !isFabMenuOpen.value;
 };
 
-// Fungsi untuk menjalankan aksi (Berikutnya/Lewati) lalu menutup menu
 const runFabAction = (action) => {
   if (action === 'next') {
     handleNext();
   } else if (action === 'skip') {
     handleSkip();
   }
-  isFabMenuOpen.value = false; // Otomatis tutup menu setelah aksi
+  isFabMenuOpen.value = false; 
 };
 
 let pollingInterval = null;
 
 onMounted(() => {
   store.fetchQueues();
-  // Polling setiap 5 detik untuk data terbaru
   pollingInterval = setInterval(store.fetchQueues, 5000);
 });
 
 onUnmounted(() => {
-  // Hentikan polling saat meninggalkan halaman
   clearInterval(pollingInterval);
 });
 
@@ -159,7 +155,7 @@ const handleRecall = (nomor) => {
 }
 
 .main-display {
-    position: relative; /* Diperlukan agar tombol bisa diposisikan */
+    position: relative; 
 }
 
 .fullscreen-btn {
@@ -180,7 +176,6 @@ const handleRecall = (nomor) => {
 .fullscreen-btn:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
-/* [TAMBAHKAN INI] Gaya untuk Mode Fullscreen Operator */
 .fullscreen-display {
     position: fixed;
     top: 0;
@@ -201,7 +196,7 @@ const handleRecall = (nomor) => {
 }
 
 .fs-number {
-    font-size: 25vw; /* Ukuran font relatif terhadap lebar layar */
+    font-size: 25vw; 
     font-weight: 700;
     line-height: 1;
 }
@@ -222,19 +217,16 @@ const handleRecall = (nomor) => {
     margin-top: 2rem;
 }
 
-/* Tombol close di mode fullscreen */
 .fullscreen-btn.close {
     top: 20px;
     right: 20px;
 }
 
-/* Animasi sederhana untuk kemunculan */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* [TAMBAHKAN INI] Gaya untuk Tombol Asisten (FAB) di Mode Fullscreen */
 
 .fab-container {
     position: fixed;
@@ -242,7 +234,7 @@ const handleRecall = (nomor) => {
     right: 30px;
     z-index: 2010;
     display: flex;
-    flex-direction: column-reverse; /* Tombol utama di bawah, aksi di atas */
+    flex-direction: column-reverse; 
     align-items: center;
 }
 
@@ -280,7 +272,6 @@ const handleRecall = (nomor) => {
     justify-content: center;
     align-items: center;
     
-    /* Animasi kemunculan */
     opacity: 0;
     transform: translateY(10px);
     animation: fab-in 0.3s ease-out forwards;
@@ -288,14 +279,13 @@ const handleRecall = (nomor) => {
 
 .fab-next {
     background-color: var(--bpjs-green);
-    animation-delay: 0.1s; /* Muncul sedikit lebih lambat */
+    animation-delay: 0.1s; 
 }
 
 .fab-skip {
-    background-color: #f39c12; /* Warna oranye untuk lewati */
+    background-color: #f39c12; 
 }
 
-/* Animasi untuk kemunculan tombol aksi */
 @keyframes fab-in {
     from {
         opacity: 0;
@@ -313,16 +303,16 @@ const handleRecall = (nomor) => {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0); /* Latar belakang semi-transparan */
+    background-color: rgba(0, 0, 0, 0); 
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2020; /* Pastikan posisinya di atas konten lain */
-    backdrop-filter: blur(2px); /* Efek blur modern */
+    z-index: 2020; 
+    backdrop-filter: blur(2px); 
 }
 .fs-loading-overlay .btn-spinner {
     width: 80px;
     height: 80px;
-    border-width: 8px; /* Buat garis spinner lebih tebal */
+    border-width: 8px;
 }
 </style>

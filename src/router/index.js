@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { auth } from '@/firebase/config';
 
-// Impor semua komponen View Anda
 import PublicView from '../views/PublicView.vue'
 import OperatorView from '../views/OperatorView.vue'
 import ReportView from '../views/ReportView.vue'
@@ -13,7 +12,7 @@ const getCurrentUser = () => {
     const removeListener = onAuthStateChanged(
       auth,
       (user) => {
-        removeListener(); // Hentikan pendengar setelah kita dapat jawaban
+        removeListener(); 
         resolve(user);
       },
       reject
@@ -38,13 +37,12 @@ const router = createRouter({
       path: '/operator',
       name: 'operator',
       component: OperatorView,
-      // Hanya menggunakan pengecekan login Firebase
       beforeEnter: async (to, from, next) => {
-        const user = await getCurrentUser(); // Tunggu jawaban pasti dari Firebase
+        const user = await getCurrentUser(); 
         if (user) {
-          next(); // Ada pengguna, izinkan masuk
+          next(); 
         } else {
-          next({ name: 'login' }); // Tidak ada pengguna, lempar ke login
+          next({ name: 'login' }); 
         }
       }
     },
@@ -52,13 +50,12 @@ const router = createRouter({
       path: '/laporan',
       name: 'laporan',
       component: ReportView,
-      // Hanya menggunakan pengecekan login Firebase
       beforeEnter: async (to, from, next) => {
-        const user = await getCurrentUser(); // Tunggu jawaban pasti dari Firebase
+        const user = await getCurrentUser(); 
         if (user) {
-          next(); // Ada pengguna, izinkan masuk
+          next(); 
         } else {
-          next({ name: 'login' }); // Tidak ada pengguna, lempar ke login
+          next({ name: 'login' }); 
         }
       }
     }

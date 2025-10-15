@@ -54,20 +54,15 @@ import { ref } from 'vue';
 
 const store = useQueueStore()
 const zoomLink = ref('https://bpjs-kesehatan-go-id.zoom.us/j/91628629114?pwd=YEOrgFrbM44fk8MEfc3mHKpo0cFNg1.1'); // Ganti dengan link asli Anda
-const copyStatus = ref('Salin Link'); // Teks awal tombol
+const copyStatus = ref('Salin Link'); 
 
-// 3. Fungsi untuk menyalin link
 const copyZoomLink = () => {
-  // Gunakan API modern browser untuk menyalin ke clipboard
   navigator.clipboard.writeText(zoomLink.value).then(() => {
-    // Jika berhasil, ubah teks tombol sementara
     copyStatus.value = 'Berhasil Disalin!';
-    // Kembalikan teks tombol ke semula setelah 2 detik
     setTimeout(() => {
       copyStatus.value = 'Salin Link';
     }, 2000);
   }).catch(err => {
-    // Jika gagal, tampilkan pesan error di konsol
     console.error('Gagal menyalin link: ', err);
     copyStatus.value = 'Gagal';
   });
@@ -75,7 +70,6 @@ const copyZoomLink = () => {
 </script>
 
 <style scoped>
-/* Gaya yang sudah ada tidak diubah */
 .ticket-view {
   animation: fadeInUp 0.7s ease-out forwards;
 }
@@ -148,57 +142,48 @@ const copyZoomLink = () => {
 
 .link-box { margin-top: 0; }
 
-/* =====================================================
---- PERBAIKAN RESPONSIVE SECARA KESELURUHAN ---
-Menggunakan max-width: 768px untuk mencakup tablet dan mobile
-=====================================================
-*/
+
 @media (max-width: 768px) {
-  /* [FIX 1] Mengurangi ukuran font utama agar tidak terlalu besar */
   h1 {
     font-size: 24px;
   }
   .ticket-box .number {
-    font-size: 64px; /* Sedikit lebih kecil dari versi desktop */
+    font-size: 64px; 
   }
 
-  /* [FIX 2] Menyesuaikan layout kartu preview Zoom, digabung dari media query sebelumnya */
   .zoom-preview-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
   .zoom-join-button {
-    width: 100%; /* Tombol memenuhi lebar kartu */
+    width: 100%; 
   }
   
-  /* [FIX 3] Membuat link box bisa wrap dan lebih ramah mobile */
   .link-box {
-    flex-wrap: wrap; /* Izinkan item turun ke bawah jika tidak muat */
+    flex-wrap: wrap; 
     padding: 10px;
   }
 
-  /* [FIX 4] Membuat link dan tombol mengambil lebar penuh saat wrap */
   .zoom-link, .copy-button {
-    flex-basis: 100%; /* Setiap item mengambil 1 baris penuh */
+    flex-basis: 100%; 
     width: 100%;
     text-align: center;
   }
   
   .zoom-link {
-    white-space: normal; /* Izinkan teks link untuk wrap */
-    word-break: break-all; /* Paksa link yang sangat panjang untuk patah */
-    text-overflow: initial; /* Hapus ellipsis karena teks sudah bisa wrap */
-    margin-bottom: 10px; /* Beri jarak ke tombol di bawahnya */
-    font-size: 13px; /* Kecilkan sedikit font link */
+    white-space: normal; 
+    word-break: break-all; 
+    text-overflow: initial; 
+    margin-bottom: 10px; 
+    font-size: 13px; 
     padding: 10px;
   }
 
   .copy-button {
-    justify-content: center; /* Posisikan ikon dan teks di tengah tombol */
+    justify-content: center; 
   }
   
-  /* [FIX OPSIONAL] Membuat `.ticket-box` lebih rapi di mobile */
   .ticket-box {
     padding: 20px;
   }

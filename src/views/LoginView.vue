@@ -50,7 +50,6 @@
       &copy; {{ new Date().getFullYear() }} BPJS Kesehatan Cabang Makassar
     </p>
 
-    <!-- [BARU] Modal untuk Reset Password -->
     <div v-if="showResetModal" class="modal-overlay" @click.self="closeResetModal">
         <div class="modal-card fade-in-up">
             <h3>Reset Password</h3>
@@ -89,7 +88,6 @@ const errorMessage = ref('');
 const isLoading = ref(false);
 const router = useRouter();
 
-// State untuk Modal Reset Password
 const showResetModal = ref(false);
 const resetEmail = ref('');
 const isSendingReset = ref(false);
@@ -99,14 +97,13 @@ const isResetEmailSent = ref(false);
 const openResetModal = () => {
     showResetModal.value = true;
     resetMessage.value = '';
-    resetEmail.value = email.value; // Otomatis isi email dari form login
+    resetEmail.value = email.value; 
     isResetEmailSent.value = false;
 };
 const closeResetModal = () => {
     showResetModal.value = false;
 };
 
-// Fungsi untuk menangani Lupa Password
 const handleResetPassword = async () => {
     if (!resetEmail.value) {
         resetMessage.value = 'Alamat email tidak boleh kosong.';
@@ -130,7 +127,6 @@ const handleResetPassword = async () => {
     }
 };
 
-// Fungsi untuk menangani Login
 const handleLogin = async () => {
   isLoading.value = true;
   errorMessage.value = '';
@@ -177,7 +173,6 @@ const handleLogin = async () => {
     color: var(--text-muted);
 }
 
-/* Desain Input Grup Baru */
 .input-group {
     position: relative;
     margin-bottom: 25px;
@@ -194,7 +189,7 @@ const handleLogin = async () => {
     width: 100%;
     border: none;
     border-bottom: 2px solid var(--border-color);
-    padding: 10px 10px 10px 35px; /* Ruang untuk ikon */
+    padding: 10px 10px 10px 35px; 
     font-size: 1rem;
     background-color: transparent;
     transition: border-color 0.3s;
@@ -240,7 +235,6 @@ const handleLogin = async () => {
     color: var(--text-muted);
 }
 
-/* Gaya untuk Modal Reset Password */
 .modal-overlay {
     position: fixed;
     top: 0;
