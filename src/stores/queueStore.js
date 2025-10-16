@@ -28,9 +28,29 @@ export const useQueueStore = defineStore('queue', () => {
     }
 
     const isSesi1 = (hour >= 8 && hour < 11) || (hour === 11 && minute <= 50);
-    const isSesi2 = (hour === 13 && minute >= 30) || (hour === 14) || (hour === 15 && minute <= 30);
+    // const isSesi2 = (hour === 13 && minute >= 30) || (hour === 14) || (hour === 15 && minute <= 30);
     
-    if (isSesi1 || isSesi2) {
+    //aktifkan jika sesi dua sudah berlaku
+    // if (isSesi1 || isSesi2) {
+    //   return { 
+    //     isOpen: true, 
+    //     message: 'Formulir sedang dibuka.' 
+    //   };
+    // }
+
+    // let nextOpen = '';
+    // if (hour < 8) {
+    //   nextOpen = 'pukul 08:00 WITA hari ini.';
+    
+    // } else if ((hour === 11 && minute > 30) || hour === 12 || (hour === 13 && minute < 30)) {
+    //   nextOpen = 'pukul 13:30 WITA.';
+    
+    // } else {
+    //   nextOpen = 'besok hari.';
+    // }
+
+    //hanya sesi 1
+    if (isSesi1 ) {
       return { 
         isOpen: true, 
         message: 'Formulir sedang dibuka.' 
@@ -40,9 +60,6 @@ export const useQueueStore = defineStore('queue', () => {
     let nextOpen = '';
     if (hour < 8) {
       nextOpen = 'pukul 08:00 WITA hari ini.';
-    
-    } else if ((hour === 11 && minute > 30) || hour === 12 || (hour === 13 && minute < 30)) {
-      nextOpen = 'pukul 13:30 WITA.';
     
     } else {
       nextOpen = 'besok hari.';

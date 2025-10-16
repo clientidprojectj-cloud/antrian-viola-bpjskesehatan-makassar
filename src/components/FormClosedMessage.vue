@@ -8,22 +8,22 @@
     <p class="status-message">{{ message }}</p>
 
     <div class="schedule">
-      <div class="schedule-title">Jam Pelayanan VIOLA</div>
+      <div class="schedule-title">Jadwal Pelayanan VIOLA</div>
       <div class="schedule-grid">
         <div class="schedule-item">
           <i class="fa-regular fa-sun"></i>
           <div>
-            <div class="session-title">Sesi Pagi</div>
-            <div class="session-time">08:00 - 11:30 WITA</div>
+            <div class="session-title">Pukul</div>
+            <div class="session-time">08:00 - 11:50 WITA</div>
           </div>
         </div>
-        <div class="schedule-item">
+        <!-- <div class="schedule-item">
           <i class="fa-regular fa-moon"></i>
           <div>
             <div class="session-title">Sesi Siang</div>
             <div class="session-time">13:30 - 15:30 WITA</div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="schedule-days">
         Senin - Jumat (Sabtu, Minggu, dan Hari Libur Nasional Tutup)
@@ -156,5 +156,10 @@ h1 {
 
 .fade-in-up {
     animation: fadeInUp 0.7s ease-out forwards;
+}
+
+/* komentar ini kalo sudah pakai sesi 2 */
+.schedule-grid {
+  grid-template-columns: 1fr;
 }
 </style>
