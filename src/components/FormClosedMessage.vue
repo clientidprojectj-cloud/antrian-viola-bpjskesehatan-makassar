@@ -10,29 +10,40 @@
     <div class="schedule">
       <div class="schedule-title">Jadwal Pelayanan VIOLA</div>
       <div class="schedule-grid">
-        <div class="schedule-item">
+        
+        <div v-if="settingsStore.settings.schedule.sesi1_aktif" class="schedule-item">
           <i class="fa-regular fa-sun"></i>
           <div>
-            <div class="session-title">Pukul</div>
-            <div class="session-time">08:00 - 11:50 WITA</div>
+            <div class="session-title">Sesi Pagi</div>
+            <div class="session-time">
+              {{ settingsStore.settings.schedule.sesi1_start }} - {{ settingsStore.settings.schedule.sesi1_end }} WITA
+            </div>
           </div>
         </div>
-        <!-- <div class="schedule-item">
+
+        <div v-if="settingsStore.settings.schedule.sesi2_aktif" class="schedule-item">
           <i class="fa-regular fa-moon"></i>
           <div>
             <div class="session-title">Sesi Siang</div>
-            <div class="session-time">13:30 - 15:30 WITA</div>
+            <div class="session-time">
+              {{ settingsStore.settings.schedule.sesi2_start }} - {{ settingsStore.settings.schedule.sesi2_end }} WITA
+            </div>
           </div>
-        </div> -->
+        </div>
+
       </div>
       <div class="schedule-days">
-        Senin - Jumat (Sabtu, Minggu, dan Hari Libur Nasional Tutup)
+        {{ settingsStore.settings.schedule.hari_operasional_teks }}
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useSettingsStore } from '@/stores/settingsStore'
+
+const settingsStore = useSettingsStore()
+
 defineProps({
   message: {
     type: String,
@@ -109,6 +120,12 @@ h1 {
   text-align: left;
 }
 
+.schedule-grid:has(> :nth-child(2):last-child) {
+    grid-template-columns: 1fr;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
 .schedule-item {
   display: flex;
   align-items: center;
@@ -158,8 +175,4 @@ h1 {
     animation: fadeInUp 0.7s ease-out forwards;
 }
 
-/* komentar ini kalo sudah pakai sesi 2 */
-.schedule-grid {
-  grid-template-columns: 1fr;
-}
 </style>

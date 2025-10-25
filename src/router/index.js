@@ -6,7 +6,7 @@ import OperatorView from '../views/OperatorView.vue'
 import ReportView from '../views/ReportView.vue'
 import LoginView from '../views/LoginView.vue'
 import { onAuthStateChanged } from 'firebase/auth';
-
+import SettingsView from '../views/SettingsView.vue'
 const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const removeListener = onAuthStateChanged(
@@ -50,6 +50,19 @@ const router = createRouter({
       path: '/laporan',
       name: 'laporan',
       component: ReportView,
+      beforeEnter: async (to, from, next) => {
+        const user = await getCurrentUser(); 
+        if (user) {
+          next(); 
+        } else {
+          next({ name: 'login' }); 
+        }
+      }
+    },
+    { 
+      path: '/pengaturan',
+      name: 'pengaturan',
+      component: SettingsView,
       beforeEnter: async (to, from, next) => {
         const user = await getCurrentUser(); 
         if (user) {
