@@ -27,10 +27,11 @@ import QueueForm from '@/components/QueueForm.vue'
 import TicketDisplay from '@/components/TicketDisplay.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import FormClosedMessage from '@/components/FormClosedMessage.vue' 
-
+import { useSettingsStore } from '@/stores/settingsStore'
 const store = useQueueStore()
-
+const settingsStore = useSettingsStore()
 onMounted(() => {
+  settingsStore.initListener()
   store.checkLocalStorage()
 })
 </script>

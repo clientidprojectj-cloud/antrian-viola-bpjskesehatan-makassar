@@ -20,6 +20,11 @@
               <span>Cetak Laporan</span>
             </router-link>
           </li>
+          <li> <router-link to="/pengaturan">
+              <i class="fa-solid fa-cogs"></i>
+              <span>Pengaturan Form</span>
+            </router-link>
+          </li>
         </ul>
       </nav>
       <div class="account-dropdown">
@@ -58,11 +63,11 @@ import { computed, ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter, RouterView, RouterLink } from 'vue-router'
 import { auth } from '@/firebase/config'; 
 import { signOut, onAuthStateChanged } from 'firebase/auth'; 
-
+import { useSettingsStore } from '@/stores/settingsStore'
 const route = useRoute()
 const router = useRouter();
 const isSidebarOpen = ref(false)
-
+const settingsStore = useSettingsStore()
 const isAccountDropdownOpen = ref(false); 
 const userEmail = ref('');
 const toggleAccountDropdown = () => {
@@ -88,7 +93,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 const isOperatorArea = computed(() => {
-  return route.name === 'operator' || route.name === 'laporan'
+  return route.name === 'operator' || route.name === 'laporan' || route.name === 'pengaturan'
 })
 
 const toggleSidebar = () => {
@@ -98,6 +103,11 @@ const toggleSidebar = () => {
 watch(route, () => {
     isSidebarOpen.value = false;
 });
+onMounted(() => {
+  if (isOperatorArea.value) {
+    settingsStore.initListener()
+  }
+})
 </script>
 
 <style>
